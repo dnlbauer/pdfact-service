@@ -14,6 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: set tag
+      id: tag
+      run: echo "::set-output name=tag::$(date +%s)"
     - name: docker login
       uses: docker/login-action@v2
       with:
@@ -24,4 +27,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{secrets.DOCKER_USER}}/pdfact-service:latest , ${{secrets.DOCKER_USER}}/pdfact-service:$(date +%s)
+        tags: ${{secrets.DOCKER_USER}}/pdfact-service:latest , ${{secrets.DOCKER_USER}}/pdfact-service:${{ steps.tag.outputs.tag }}
