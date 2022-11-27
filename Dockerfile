@@ -6,7 +6,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y maven git
 
 WORKDIR /
-# TODO freeze revision?
 RUN git clone https://github.com/ad-freiburg/pdfact.git --depth 1 --branch master
 WORKDIR pdfact
 
