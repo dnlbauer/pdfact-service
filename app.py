@@ -32,17 +32,27 @@ def analyze():
     app.logger.debug(f"saving file as {file_path}")
     file.save(file_path)
 
-
+    cmd = ["java", "-jar", "/pdfact.jar", file_path]
 
     mime, response_format = get_format(request)
-    cmd = ["java", "-jar", "/pdfact.jar", file_path, "--format", response_format]
+    cmd += ["--format", response_format]
+
+    units = request.args.get("units", None)
+    if units is not None:
+        cmd += ["--units", units]
+
+    roles = request.args.get("roles", None)
+    if roles is not None:
+        cmd += ["--include-roles", roles]
+
     app.logger.debug(f"running {' '.join(cmd)}")
 
     try:
-        result = sp.check_output(cmd)
+        result = sp.check_output(cmd, stderr=sp.STDOUT)
         return Response(result, mimetype=mime)
-    except sp.CalledProcessError:
-        return "Something went wrong", 500
+    except sp.CalledProcessError as e:
+        app.logger.error("Error running pdfact:", e.output.decode())
+        return f"Error running pdfact: {e.output.decode()}", 500
     finally:
         remove(file_path)
 
