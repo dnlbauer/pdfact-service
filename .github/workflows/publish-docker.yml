@@ -20,7 +20,7 @@ jobs:
         username: ${{secrets.DOCKER_USER}}
         password: ${{secrets.DOCKER_PASSWORD}}
     - name: docker build and push
-      uses: docker/build-and-push@v2
+      uses: docker/build-push-action@v3
       with:
         context: .
         push: true
