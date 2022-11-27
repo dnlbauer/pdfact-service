@@ -38,6 +38,6 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY app.py gunicorn.conf.py ./
+COPY app.py gunicorn_conf.py ./
 
-ENTRYPOINT ["gunicorn", "--conf", "gunicorn.conf.py", "--bind", "0.0.0.0:80", "app:app"]
+ENTRYPOINT ["gunicorn", "--conf", "gunicorn_conf.py", "--bind", "0.0.0.0:80", "app:app"]
