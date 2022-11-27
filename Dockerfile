@@ -1,14 +1,17 @@
-# build pdfact
+# STEP 1: build pdfact
 FROM ubuntu:20.04
+
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y maven git
 
 WORKDIR /
+# TODO freeze revision?
 RUN git clone https://github.com/ad-freiburg/pdfact.git
 WORKDIR pdfact
 
 RUN mvn install -DskipTests
 
+# STEP 2: run service
 FROM alpine:latest
 WORKDIR /
 
@@ -26,12 +29,15 @@ RUN apk add --no-cache python3 \
     && python3 -m ensurepip \
     && pip3 install --upgrade pip setuptools
 
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 # install flask app
 WORKDIR /app
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY app.py .
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+COPY app.py gunicorn.conf.py ./
+
+ENTRYPOINT ["gunicorn", "--conf", "gunicorn.conf.py", "--bind", "0.0.0.0:80", "app:app"]
