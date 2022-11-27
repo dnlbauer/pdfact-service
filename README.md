@@ -1,5 +1,5 @@
 # pdfact-service
-[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+[![License](https://img.shields.io/github/license/dnlbauer/pdfact-service)](./LICENSE)
 [![Docker](https://img.shields.io/docker/pulls/dnlbauer/pdfact-service)](https://hub.docker.com/r/dnlbauer/pdfact-service/tags)
 
 A Webservice to analyze the content of PDF Documents using a HTTP API. This is a simple HTTP wrapper around [ad-freiburg/pdfact](https://github.com/ad-freiburg/pdfact) and builds the container image directly from their source.
@@ -47,4 +47,10 @@ PDFs can be `POST`ed to `/analyze` as multipart file request. The response will 
 ```
 
 ## Thanks
-All credits go to the Algorithms and Data Structures Group from University of Freiburg for [ad-freiburg/pdfact](https://github.com/ad-freiburg/pdfact).
+All credits go to the Algorithms and Data Structures Group from
+University of Freiburg for [ad-freiburg/pdfact](https://github.com/ad-freiburg/pdfact).
+
+## License
+Published under CC0. Do whatever you want :-)
+
+*(but also check the license of pdfact if you are going to use the image as is).*
