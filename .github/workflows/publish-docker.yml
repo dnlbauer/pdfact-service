@@ -28,3 +28,14 @@ jobs:
         context: .
         push: true
         tags: ${{secrets.DOCKER_USER}}/pdfact-service:latest , ${{secrets.DOCKER_USER}}/pdfact-service:${{ steps.tag.outputs.tag }}
+    - name: docker push readme
+      uses: christian-korneck/update-container-description-action@v1
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASS: ${{secrets.DOCKER_PASSWORD}}
+      with:
+        destination_container_repo: dnlbauer/pdfact-service
+        provider: dockerhub
+        short_description: 'Analyze pdf files with pdfact using a simple web API.'
+        readme_file: 'README.md'
+
