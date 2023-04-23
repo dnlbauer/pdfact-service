@@ -19,6 +19,10 @@ def get_format(req, fallback=("application/json", "json")):
     else:
         return fallback
 
+@app.route('/', methods=["GET"])
+def healthcheck():
+    return "OK", 200
+
 
 @app.route('/analyze', methods=["POST"])
 def analyze():
