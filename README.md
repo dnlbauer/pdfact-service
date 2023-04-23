@@ -46,6 +46,11 @@ PDFs can be `POST`ed to `/analyze` as multipart file request. The response will 
 ]}
 ```
 
+Supported cli arguments (`--units`, `--roles`) can be supplied as http parameters. Example:
+```bash
+> curl ... localhost:80/analyze?roles=body&units=words
+```
+
 ## Thanks
 All credits go to the Algorithms and Data Structures Group from
 University of Freiburg for [ad-freiburg/pdfact](https://github.com/ad-freiburg/pdfact).
