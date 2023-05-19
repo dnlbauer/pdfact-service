@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
+  pull_request_target:
     branches: [ "main" ]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -51,6 +51,6 @@ jobs:
     steps:
       - name: Automerge dependabot PR
         env:
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          GH_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.DEPENDABOT_TOKEN}}
         run: gh pr merge --auto --merge "$PR_URL"
