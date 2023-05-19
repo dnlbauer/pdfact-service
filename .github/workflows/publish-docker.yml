@@ -44,3 +44,13 @@ jobs:
         provider: dockerhub
         short_description: 'Analyze pdf files with pdfact using a simple web API.'
         readme_file: 'README.md'
+  dependabot_auto_merge:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    steps:
+      - name: Automerge dependabot PR
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.DEPENDABOT_TOKEN }}
+        run: gh pr merge --auto --merge "$PR_URL"
