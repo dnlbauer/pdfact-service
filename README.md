@@ -1,5 +1,6 @@
 # pdfact-service
 [![License](https://img.shields.io/github/license/dnlbauer/pdfact-service)](./LICENSE)
+![actions](https://github.com/dnlbauer/pdfact-service/actions/workflows/build.yml/badge.svg?branch=main)
 [![Docker](https://img.shields.io/docker/pulls/dnlbauer/pdfact-service)](https://hub.docker.com/r/dnlbauer/pdfact-service/tags)
 
 A Webservice to analyze the content of PDF Documents using a HTTP API. This is a simple HTTP wrapper around [ad-freiburg/pdfact](https://github.com/ad-freiburg/pdfact) and builds the container image directly from their source.
