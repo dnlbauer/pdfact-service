@@ -47,7 +47,7 @@ jobs:
   dependabot_auto_merge:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request_target' }}
     steps:
       - name: Automerge dependabot PR
         env:
