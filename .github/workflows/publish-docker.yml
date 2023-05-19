@@ -14,17 +14,15 @@ env:
   IMAGE_NAME: pdfact-service
   
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: set tag
       id: tag
       run: echo "::set-output name=tag::$(date +%s)"
     - name: docker login
+      if: ${{github.event_name != 'pull_request'}}
       uses: docker/login-action@v2
       with:
         username: ${{env.CONTAINER_REGISTRY_USER}}
@@ -33,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        push: true
+        push: ${{github.event_name != 'pull_request'}}
         tags: ${{env.CONTAINER_REGISTRY_USER}}/${{env.IMAGE_NAME}}:latest , ${{env.CONTAINER_REGISTRY_USER}}/${{env.IMAGE_NAME}}:${{ steps.tag.outputs.tag }}
     - name: docker push readme
       uses: christian-korneck/update-container-description-action@v1
@@ -46,4 +44,3 @@ jobs:
         provider: dockerhub
         short_description: 'Analyze pdf files with pdfact using a simple web API.'
         readme_file: 'README.md'
-
